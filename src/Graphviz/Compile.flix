@@ -9,6 +9,8 @@ mod Graphviz.Compile {
     use Graphviz.Model.Strictness
     use Graphviz.Model.Subgraph
 
+    use Graphviz.Utils.TwoList
+
     pub def compile(g: Graph): String = {
         let Graph.Graph(strictness, dir, id, stmts) = g;
         let strictnessString = match strictness {
@@ -67,12 +69,13 @@ mod Graphviz.Compile {
         compileId(k) ++ " = " ++ compileId(v)
     }
 
-    def compilePath(d: Direction, p: List[Endpoint]): String = {
+    def compilePath(d: Direction, p: TwoList[Endpoint]): String = {
         let edgeString = match d {
             case Direction.Directed => " -> "
             case Direction.Undirected => " -- "
         };
-        p |> List.map(compileEndpoint)
+        p |> TwoList.toList
+            |> List.map(compileEndpoint)
             |> List.join(edgeString)
     }
 

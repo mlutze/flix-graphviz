@@ -1,4 +1,6 @@
 mod Graphviz.Model {
+    use Graphviz.Utils.TwoList
+
     pub enum Strictness {
         case Strict
         case NonStrict
@@ -15,7 +17,7 @@ mod Graphviz.Model {
 
     pub enum Statement {
         case Node(Id, List[Attr])
-        case Edge(List[Endpoint], List[Attr])
+        case Edge(TwoList[Endpoint], List[Attr])
         case DefaultAttr(AttrTarget, List[Attr])
         case Attr(Attr)
         case Subgraph(Subgraph)
