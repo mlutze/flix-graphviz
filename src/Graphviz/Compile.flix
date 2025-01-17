@@ -75,11 +75,14 @@ mod Graphviz.Compile {
             case Direction.Undirected => " -- "
         };
         p |> TwoList.toList
-            |> List.map(compileEndpoint)
+            |> List.map(compileEndpoint(d))
             |> List.join(edgeString)
     }
 
-    def compileEndpoint(e: Endpoint): String = ???
+    def compileEndpoint(d: Direction, e: Endpoint): String = match e {
+        case Endpoint.Node(name) => name
+        case Endpoint.Subgraph(sub) => compileSubgraph(d, sub)
+    }
 
     def compileAttrTarget(t: AttrTarget): String = match t {
         case AttrTarget.Graph => "graph"
